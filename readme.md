@@ -1,4 +1,4 @@
-```markdown:n8n/README.md
+
 # PEPAY n8n Integration
 
 ⚠️ **BETA SOFTWARE - USE AT YOUR OWN RISK**
@@ -61,4 +61,3 @@ npm install n8n-nodes-pepay
 ## License
 
 MIT
-```
