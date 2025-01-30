@@ -20,12 +20,25 @@ export async function handleListInvoices(
                 page,
                 status: filters.status,
             });
+
+            if (!response.items?.length) {
+                hasMore = false;
+                break;
+            }
+
             items.push(...response.items);
-            hasMore = response.has_more;
+            
+            hasMore = response.has_more === true;
             page++;
+
+            if (page > 100) break;
         }
 
-        return items;
+        return {
+            items,
+            total: items.length,
+            totals: response.totals
+        };
     }
 
     const limit = executeFunctions.getNodeParameter('limit', 0) as number;
@@ -34,5 +47,9 @@ export async function handleListInvoices(
         status: filters.status,
     });
 
-    return response.items.slice(0, limit);
+    return {
+        items: response.items.slice(0, limit),
+        total: response.items.length,
+        totals: response.totals
+    };
 }
